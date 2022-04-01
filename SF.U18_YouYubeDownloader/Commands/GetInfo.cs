@@ -12,11 +12,12 @@ namespace SF.U18_YouYubeDownloader.Commands
     /// </summary>
     class GetInfo : Command
     {
-        Video video;
+        String url;
 
-        public GetInfo(Video video)
+        public GetInfo(String url)
         {
-            this.video = video;
+            this.url = url;
+            Console.WriteLine("Создана команда по получению информации по адресу {0}", url);
         }
 
         // Выполнить

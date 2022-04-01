@@ -12,11 +12,12 @@ namespace SF.U18_YouYubeDownloader.Commands
     /// </summary>
     class Download : Command
     {
-        Video video;
+        String url;
 
-        public Download(Video video)
+        public Download(String url)
         {
-            this.video = video;
+            this.url = url;
+            Console.WriteLine("Создана команда по скачиванию видео по адресу {0}",url);
         }
 
         // Выполнить
