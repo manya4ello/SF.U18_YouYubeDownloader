@@ -1,8 +1,4 @@
-﻿//videos.GetAsync(string videoUrl) — получить описание видео;
-//await videos.DownloadAsync(string videoUrl, string outputFilePath) — запустить скачивание видео. 
-//Чтобы кодирование видео проходило быстрее, можно передать в этот метод третий параметр:
-//builder => builder.SetPreset(ConversionPreset.UltraFast).
-
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,8 +14,12 @@ namespace SF.U18_YouYubeDownloader
        
          static void Main(string[] args)
         {
+            
+            YoutubeMaster youtubeMaster = new YoutubeMaster();
+            var youtube = new YoutubeClient();
+
             Console.WriteLine("ДОБРО ПОЖАЛОВАТЬ!");
-            var url = "https://youtube.com/shorts/X08e-weUiEQ?feature=share";
+            string url = default;
 
             while (true)
             {
@@ -27,7 +27,7 @@ namespace SF.U18_YouYubeDownloader
                 url = Console.ReadLine();
                 if (url == "0")
                     break;
-
+                var newvideo = new Video(url, youtube);
 
                 while (true)
                 {
@@ -39,35 +39,18 @@ namespace SF.U18_YouYubeDownloader
                     int choice = 0;
                     var check = int.TryParse(input, out choice);
                     if (choice == 1)
-                        command = new Commands.GetInfo(url);
+                        youtubeMaster.SetCommand(new Commands.GetInfo(newvideo));
                     if (choice == 2)
-                        command = new Commands.Download(url);
-                    if (check)
-                        command.Run();
+                        youtubeMaster.SetCommand(new Commands.Download(newvideo));
+                    if (check && (choice == 1 | choice == 2))
+                         youtubeMaster.Run();
+                        
+                            
                 }
             }
-            
-            url = "https://youtube.com/shorts/X08e-weUiEQ?feature=share";
-            Doasync(url);
-
+                      
             Console.ReadKey();
         }
-        async static void Doasync (string url)
-        {
-            var youtube = new YoutubeClient();
-            var video = await youtube.Videos.GetAsync(url);
-
-            var title = video.Title; 
-            var author = video.Author.Title; 
-            var duration = video.Duration; 
-
-            Console.WriteLine(title);
-            Console.WriteLine(author);  
-            Console.WriteLine(duration);
-
-            
-            await youtube.Videos.DownloadAsync(url, "video.mp4", builder => builder.SetPreset(ConversionPreset.UltraFast));
-         
-        }
+       
     }
 }

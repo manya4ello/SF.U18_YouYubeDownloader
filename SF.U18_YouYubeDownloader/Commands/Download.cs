@@ -12,23 +12,26 @@ namespace SF.U18_YouYubeDownloader.Commands
     /// </summary>
     class Download : Command
     {
-        String url;
+        Video video;
+        
 
-        public Download(String url)
+        public Download(Video video)
         {
-            this.url = url;
-            Console.WriteLine("Создана команда по скачиванию видео по адресу {0}",url);
+            this.video = video;
+            Console.WriteLine("Создана команда по скачиванию видео по адресу {0}",video.Url);
         }
 
         // Выполнить
         public override async void Run()
         {
-            Console.WriteLine("Команда отправлена");
-           // video.Operation();
+           video.Download();
         }
 
         // Отменить
         public override void Cancel()
-        { }
+        {
+            //Наверное можно реализовать отмену через Cancelation Token, но как это сделать я пока не знаю
+            Console.WriteLine("Отмена этой команды не реализована"); 
+        }
     }
 }

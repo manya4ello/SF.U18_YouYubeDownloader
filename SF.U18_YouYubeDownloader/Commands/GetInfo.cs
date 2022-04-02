@@ -12,20 +12,18 @@ namespace SF.U18_YouYubeDownloader.Commands
     /// </summary>
     class GetInfo : Command
     {
-        String url;
+        Video video;
 
-        public GetInfo(String url)
+        public GetInfo(Video video)
         {
-            this.url = url;
-            Console.WriteLine("Создана команда по получению информации по адресу {0}", url);
+            this.video = video;
+            Console.WriteLine("Создана команда по получению информации по адресу {0}", video.Url);
         }
 
         // Выполнить
         public override async void Run()
         {
-            //Console.WriteLine("Команда отправлена");
-            //videos.GetAsync(string videoUrl);
-            //receiver.Operation();
+            video.Getinfo();
         }
 
         // Отменить
