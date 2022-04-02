@@ -27,6 +27,7 @@ namespace SF.U18_YouYubeDownloader
                 url = Console.ReadLine();
                 if (url == "0")
                     break;
+                
                 var newvideo = new Video(url, youtube);
 
                 while (true)
